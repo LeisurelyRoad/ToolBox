@@ -11,21 +11,9 @@ def show_menu():
     print("输入4进入恢复相同后缀的文件名原名功能")
     print("输入5进入查询文件夹列表的文件功能")
     print("输入6进入自动整理文件功能")
-    print("输入7退出程序")
+    print("输入7返回上一级菜单")
 
-# =============== 功能函数 ===============
-
-def save_name(old_name,new_name):
-    save_old_name[new_name] = old_name
-
-def recover_name(folder_path,new_name):
-    if new_name in save_old_name:
-        old_name = save_old_name[new_name]
-        new_name_path = os.path.join(folder_path,new_name)
-        old_path = os.path.join(folder_path,old_name)
-        os.rename(new_name_path, old_path)
-        del save_old_name[new_name]
-        save_backup()
+# =============== 备份函数 ===============
 
 def load_backup():
     try:
@@ -47,6 +35,19 @@ def save_backup():
             f.write(f"{new_name}|{old_name}\n")
 
 
+# =============== 功能函数 ===============
+
+def save_name(old_name,new_name):
+    save_old_name[new_name] = old_name
+
+def recover_name(folder_path,new_name):
+    if new_name in save_old_name:
+        old_name = save_old_name[new_name]
+        new_name_path = os.path.join(folder_path,new_name)
+        old_path = os.path.join(folder_path,old_name)
+        os.rename(new_name_path, old_path)
+        del save_old_name[new_name]
+        save_backup()
 
 def rename_all_files():
     folder_path = input("输入文件所在的文件夹路径")
@@ -159,6 +160,7 @@ load_backup()
 def file_tools_menu():
 
     while True:
+        print("")
         show_menu()
         user_choose = input("输入数字选择功能")
 
@@ -182,7 +184,7 @@ def file_tools_menu():
 
         elif user_choose == "7":
             save_backup()
-            print("退出file_tools程序")
+            print("返回上一级菜单")
             break
 
         else:

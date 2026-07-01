@@ -85,8 +85,8 @@ def merge_txt_files_menu():
 # =============== 模块入口 ===============
 
 def text_tools_menu():
-    print("文本功能开发中")
     while True:
+        print("")
         show_menu()
         user_choose = input("输入数字进入相应功能：")
         if user_choose == "1":
