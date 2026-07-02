@@ -3,13 +3,13 @@
 # 当前工具
 ## 文件工具(file_tools)
 - 支持批量重命名、文件整理等功能
-- 详细功能见于[文件工具文档](工具/file_tools/file_tools.md)
+- 详细功能见于[文件工具文档](tools/file_tools/file_tools.md)
 ## 文本工具(text_tools)
 - 支持统计关键词出现次数和合并txt文件以及另外一些基础功能
-- 详细功能见于[文本工具文档](工具/text_tools/text_tools.md)
+- 详细功能见于[文本工具文档](tools/text_tools/text_tools.md)
 ## 文件分析工具(file_analyzer)
 - 支持统计文件夹内指定后缀文件数量和查找指定后缀中最大文件等功能
-- 详细功能见于[文件分析工具文档](工具/file_analyzer/file_analyer.md)
+- 详细功能见于[文件分析工具文档](tools/file_analyzer/file_analyer.md)
 
 ## 当前版本
 
