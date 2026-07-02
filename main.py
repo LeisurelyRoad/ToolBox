@@ -1,4 +1,6 @@
-from tools import file_tools, text_tools, file_analyzer
+from tools.file_tools import file_tools
+from tools.text_tools import text_tools
+from tools.file_analyzer import file_analyzer
 
 def show_main_menu():
     print("===== ToolBox V0.1 =====")
@@ -8,9 +10,7 @@ def show_main_menu():
     print("4.退出主程序")
 
 
-test = {
-    "1": "file_tools" }
-test["2"] = "test"
+
 while True:
     print("")
     show_main_menu()
@@ -30,7 +30,4 @@ while True:
         break
 
     else:
-        print(5)
-        print(f"{test}")
-        print(f"{test["2"]}")
         print("输入错误")
