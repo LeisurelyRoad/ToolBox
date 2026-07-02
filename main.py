@@ -30,6 +30,7 @@ while True:
         break
 
     else:
+        print(5)
         print(f"{test}")
         print(f"{test["2"]}")
         print("输入错误")

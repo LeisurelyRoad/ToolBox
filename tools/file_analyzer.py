@@ -89,6 +89,13 @@ def find_largest_suffix_file(file_info,suffix):
     else:
         return None
 
+def get_top_n_files(file_info,n):
+    all_biggest_to_smallest = sorted(file_info, key=lambda x: x["size"],reverse=True)
+    if n == 0:
+        return all_biggest_to_smallest
+    else:
+        return all_biggest_to_smallest[:n]
+
 
 # =============== 模块入口 ===============
 def file_analyzer_menu():
@@ -149,7 +156,19 @@ def file_analyzer_menu():
             print(f"在后缀为{suffix}的文件中,文件{max_suffix_file_info['name']}的占用最大，为{max_suffix_file_info['size']}")
 
         elif user_choose == "7":
-            print("文件分析工具功能开发中")
+            file_info = input_file_info()
+            if file_info is None:
+                continue
+            try:
+                n = int(input("输入想查的前n个文件，如果输入0，则将所有文件按从大到小排序呈现出来"))
+                if n < 0:
+                    print("输入的数字应为大于等于0的整数")
+                    continue
+                top_n_files_info = get_top_n_files(file_info,n)
+                for i , x in enumerate(top_n_files_info,start=1):
+                    print(f"{i}.{x['name']}{x['suffix']}:{x['size']}字节")
+            except ValueError:
+                print("输入的数字应为大于等于0的整数")
 
         elif user_choose == "8":
             print("返回上一级菜单")
