@@ -102,7 +102,7 @@ def file_analyzer_menu():
     while True:
         print("")
         show_menu()
-        user_choose = input("输入数字进入对应功能")
+        user_choose = input("输入数字选择功能：")
 
         if user_choose == "1":
             file_info = input_file_info()

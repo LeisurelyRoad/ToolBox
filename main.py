@@ -1,13 +1,14 @@
 from tools.file_tools import file_tools
 from tools.text_tools import text_tools
 from tools.file_analyzer import file_analyzer
-
+from tools.duplicate_check import duplicate_check
 def show_main_menu():
     print("===== ToolBox V0.1 =====")
     print("1.文件工具")
     print("2.文本工具")
     print("3.文件分析工具")
-    print("4.退出主程序")
+    print("4.重复文件检查工具")
+    print("5.退出主程序")
 
 
 
@@ -26,6 +27,8 @@ while True:
         file_analyzer.file_analyzer_menu()
 
     elif user_choose == "4":
+
+    elif user_choose == "5":
         print("退出主程序")
         break
 

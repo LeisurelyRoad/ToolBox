@@ -88,7 +88,7 @@ def text_tools_menu():
     while True:
         print("")
         show_menu()
-        user_choose = input("输入数字进入相应功能：")
+        user_choose = input("输入数字选择功能：")
         if user_choose == "1":
             view_text_content_menu()
         elif user_choose == "2":
