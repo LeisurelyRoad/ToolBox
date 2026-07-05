@@ -90,9 +90,9 @@ def find_duplicates_size(file_info):
 
 def group_by_contents(file_info):
     contents_group = {}
-    # for file_dictionary in file_info:
-    #     file_path = file_dictionary["path"]
-    #     with open(file_path, "r", encoding="utf-8") as f:
+    for file_dictionary in file_info:
+        file_path = file_dictionary["path"]
+        with open(file_path, "rb", encoding="utf-8") as f:
 
 
 
