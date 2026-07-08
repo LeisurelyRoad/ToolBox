@@ -25,7 +25,8 @@ while True:
     elif user_choose == "3":
         file_analyzer.file_analyzer_menu()
 
-    #elif user_choose == "4":
+    elif user_choose == "4":
+        duplicate_check.duplicate_check_menu()
 
     elif user_choose == "5":
         print("退出主程序")

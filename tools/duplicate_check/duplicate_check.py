@@ -146,6 +146,7 @@ def duplicate_check_menu():
                 continue
             else:
                 for same_group_name_in_list in group_names_list: #in_list元素是含有字典的列表，其中字典的part_name部分相同
+                    print()
                     print(f"名字均为{same_group_name_in_list[0]['name']}的疑似重复文件：")
                     for file_dictionary in same_group_name_in_list:
                         print(f"文件：{file_dictionary['name']}{file_dictionary['suffix']}")
@@ -160,6 +161,7 @@ def duplicate_check_menu():
                 continue
             else:
                 for group_size_in_list in group_size_list:
+                    print()
                     print(f"文件大小均为{group_size_in_list[0]['size']}疑似重复文件：")
                     for group_size_dictionary in group_size_in_list:
                         print(f"文件{group_size_dictionary['name']}{group_size_dictionary['suffix']}：文件大小为{group_size_dictionary['size']}")
@@ -174,6 +176,7 @@ def duplicate_check_menu():
                 continue
             else:
                 for duplicate_group_list in duplicate_groups:
+                    print()
                     print("相同文件内容的文件：")
                     for duplicate_group_dictionary in duplicate_group_list:
                         print(f"文件：{duplicate_group_dictionary['name']}{duplicate_group_dictionary['suffix']}，其文件大小为{duplicate_group_dictionary['size']}")
