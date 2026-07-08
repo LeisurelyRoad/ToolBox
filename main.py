@@ -11,7 +11,6 @@ def show_main_menu():
     print("5.退出主程序")
 
 
-
 while True:
     print("")
     show_main_menu()

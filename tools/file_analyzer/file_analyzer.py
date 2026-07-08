@@ -173,5 +173,7 @@ def file_analyzer_menu():
         elif user_choose == "8":
             print("返回上一级菜单")
             break
+
         else:
             print("输入错误")
+

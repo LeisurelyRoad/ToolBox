@@ -2,6 +2,11 @@
 import os
 import hashlib
 
+
+# =============== 常量 ===============
+CHUNK_SIZE = 4 * 1024
+
+
 # =============== 菜单 ===============
 def show_menu():
     print("1.检查文件名重复文件")
@@ -27,6 +32,7 @@ def get_file_info(folder_path):
     return file_info
 
 def input_file_info():
+    #file_info函数包括不读取文件夹情况，input_file_info函数包括文件夹中没文件和所输路径导向没有文件夹情况
     folder_path = input("输入文件夹路径")
     try:
         file_info = get_file_info(folder_path)
@@ -53,9 +59,9 @@ def find_duplicate_names(file_info):
     name_group = group_by_name(file_info) #字典，列表，字典
     duplicate_group_names = []
     for key_name in name_group:
-        names_list = name_group[key_name]
-        if len(names_list) > 1:
-            duplicate_group_names.append(name_group[key_name])
+        file_dictionary_list = name_group[key_name]
+        if len(file_dictionary_list) > 1:
+            duplicate_group_names.append(file_dictionary_list)
     if not duplicate_group_names:
         return None
     else:
@@ -74,9 +80,9 @@ def find_duplicates_size(file_info):
     size_group_dictionary = group_by_size(file_info) #字典，列表，字典
     duplicate_group_size = [] #用于处理没有重复文件的情况
     for size_key in size_group_dictionary:
-        size_list = size_group_dictionary[size_key]
-        if len(size_list) > 1:
-            duplicate_group_size.append(size_group_dictionary[size_key])
+        file_dictionary_list = size_group_dictionary[size_key]
+        if len(file_dictionary_list) > 1:
+            duplicate_group_size.append(file_dictionary_list)
     if not duplicate_group_size:
         return None
     else:
@@ -89,10 +95,34 @@ def find_duplicates_size(file_info):
 # 先name[内容]分组，再看组里元素多余一的即为重复文件
 
 def group_by_contents(file_info):
-    contents_group = {}
+    contents_group = {} #字典，列表，字典
     for file_dictionary in file_info:
         file_path = file_dictionary["path"]
-        with open(file_path, "rb", encoding="utf-8") as f:
+        with open(file_path, "rb") as f:
+            md5 = hashlib.md5()
+            while True:
+                content = f.read(CHUNK_SIZE)
+                if not content:
+                    break
+                md5.update(content)
+        md5_content = md5.hexdigest()
+        if md5_content not in contents_group:
+            contents_group[md5_content] = []
+        contents_group[md5_content].append(file_dictionary)
+    return contents_group
+
+def find_duplicates(file_info):
+    contents_group = group_by_contents(file_info)
+    duplicate_groups = [] #列表，列表，字典
+    for md5_key in contents_group:
+        file_dictionary_list = contents_group[md5_key]
+        if len(file_dictionary_list) > 1:
+            duplicate_groups.append(file_dictionary_list)
+    if not duplicate_groups:
+        return None
+    return duplicate_groups
+
+
 
 
 
@@ -116,9 +146,9 @@ def duplicate_check_menu():
                 continue
             else:
                 for same_group_name_in_list in group_names_list: #in_list元素是含有字典的列表，其中字典的part_name部分相同
-                    print(f"有下列含有重复名{same_group_name_in_list[0]['name']}的疑似重复文件:")
+                    print(f"名字均为{same_group_name_in_list[0]['name']}的疑似重复文件：")
                     for file_dictionary in same_group_name_in_list:
-                        print(f"{file_dictionary['name']}{file_dictionary['suffix']}")
+                        print(f"文件：{file_dictionary['name']}{file_dictionary['suffix']}")
 
         elif user_choose == "2":
             file_info = input_file_info()
@@ -130,9 +160,28 @@ def duplicate_check_menu():
                 continue
             else:
                 for group_size_in_list in group_size_list:
-                    print(f"有下列文件大小均为{group_size_in_list[0]['size']}疑似重复文件：")
+                    print(f"文件大小均为{group_size_in_list[0]['size']}疑似重复文件：")
                     for group_size_dictionary in group_size_in_list:
-                        print(f"{group_size_dictionary['name']}：文件大小为{group_size_dictionary['size']}")
+                        print(f"文件{group_size_dictionary['name']}{group_size_dictionary['suffix']}：文件大小为{group_size_dictionary['size']}")
 
         elif user_choose == "3":
-            print("3.按文件内容检查真正重复")
+            file_info = input_file_info()
+            if not file_info:
+                continue
+            duplicate_groups = find_duplicates(file_info)
+            if not duplicate_groups:
+                print("没有相同的文件")
+                continue
+            else:
+                for duplicate_group_list in duplicate_groups:
+                    print("相同文件内容的文件：")
+                    for duplicate_group_dictionary in duplicate_group_list:
+                        print(f"文件：{duplicate_group_dictionary['name']}{duplicate_group_dictionary['suffix']}，其文件大小为{duplicate_group_dictionary['size']}")
+
+        elif user_choose == "4":
+            print("返回上一级菜单")
+            break
+
+        else:
+            print("输入错误")
+
